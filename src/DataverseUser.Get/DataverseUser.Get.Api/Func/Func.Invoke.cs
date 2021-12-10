@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using GGroupp.Infra;
 
-namespace GGroupp.Infra;
+namespace GGroupp.Platform;
 
 partial class DataverseUserGetFunc
 {

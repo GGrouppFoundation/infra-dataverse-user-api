@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <InvariantGlobalization>true</InvariantGlobalization>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <RootNamespace>GGroupp.Infra</RootNamespace>
-    <AssemblyName>GGroupp.Infra.Dataverse.DataverseUser.Get.InOut</AssemblyName>
+    <RootNamespace>GGroupp.Platform</RootNamespace>
+    <AssemblyName>GGroupp.Platform.Dataverse.DataverseUser.Get.InOut</AssemblyName>
     <Version>1.0.0</Version>
   </PropertyGroup>
 

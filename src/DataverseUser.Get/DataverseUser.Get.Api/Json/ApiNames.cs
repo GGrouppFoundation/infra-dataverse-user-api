@@ -1,4 +1,4 @@
-namespace GGroupp.Infra;
+namespace GGroupp.Platform;
 
 internal static class ApiNames
 {

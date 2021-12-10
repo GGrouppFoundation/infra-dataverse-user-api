@@ -1,10 +1,11 @@
-using Moq;
-using PrimeFuncPack;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using GGroupp.Infra;
+using Moq;
+using PrimeFuncPack;
 
-namespace GGroupp.Infra.Dataverse.DataverseUser.Get.Tests;
+namespace GGroupp.Platform.Dataverse.DataverseUser.Get.Tests;
 
 using IDataverseUserGetFunc = IAsyncValueFunc<DataverseUserGetIn, Result<DataverseUserGetOut, Failure<DataverseUserGetFailureCode>>>;
 

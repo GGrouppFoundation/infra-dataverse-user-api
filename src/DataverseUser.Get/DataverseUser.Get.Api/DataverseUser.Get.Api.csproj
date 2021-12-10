@@ -6,15 +6,15 @@
     <Nullable>enable</Nullable>
     <InvariantGlobalization>true</InvariantGlobalization>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <RootNamespace>GGroupp.Infra</RootNamespace>
-    <AssemblyName>GGroupp.Infra.Dataverse.DataverseUser.Get.Api</AssemblyName>
+    <RootNamespace>GGroupp.Platform</RootNamespace>
+    <AssemblyName>GGroupp.Platform.Dataverse.DataverseUser.Get.Api</AssemblyName>
     <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="EarlyFuncPack.Core.AsyncPipeline" Version="0.0.1" />
     <PackageReference Include="GGroupp.Infra.Dataverse.Api.Abstractions.EntityGet" Version="2.1.0" />
-    <PackageReference Include="GGroupp.Infra.Dataverse.DataverseUser.Get.InOut" Version="1.0.0" />
+    <PackageReference Include="GGroupp.Platform.Dataverse.DataverseUser.Get.InOut" Version="1.0.0" />
     <PackageReference Include="PrimeFuncPack.Core.Failure" Version="1.1.1" />
     <PackageReference Include="PrimeFuncPack.Core.Func" Version="1.1.1" />
     <PackageReference Include="PrimeFuncPack.Dependency.Core" Version="2.0.0" />
