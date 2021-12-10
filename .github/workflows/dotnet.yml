@@ -1,0 +1,62 @@
+name: DotnetSixProjectBuilder
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+        include-prerelease: true  
+        
+     # Add NuGet Sources
+
+    - name: Create Local NuGet Directory
+      run: mkdir ~/nuget
+
+    - name: Add Local Nuget Source
+      run: dotnet nuget add source ~/nuget
+
+    - name: Add GGroupp NuGet Source
+      run: dotnet nuget add source ${{ secrets.GGROUPP_NUGET_SOURCE_URL }} -n ggroupp -u ${{ secrets.GGROUPP_NUGET_SOURCE_USER_NAME }} -p ${{ secrets.GGROUPP_NUGET_SOURCE_USER_PASSWORD }} --store-password-in-clear-text
+
+    # DataverseUser.Get.InOut.csproj
+
+    - name: Restore DataverseUser.Get.InOut.csproj
+      run: dotnet restore ./src/*/*/DataverseUser.Get.InOut.csproj
+
+    - name: Build DataverseUser.Get.InOut.csproj
+      run: dotnet build ./src/*/*/DataverseUser.Get.InOut.csproj --no-restore  -c Release
+
+    - name: Pack DataverseUser.Get.InOut.csproj
+      run: dotnet pack ./src/*/*/DataverseUser.Get.InOut.csproj --no-restore -o ~/nuget  -c Release
+
+    # DataverseUser.Get.Api.csproj
+
+    - name: Restore DataverseUser.Get.Api.csproj
+      run: dotnet restore ./src/*/*/DataverseUser.Get.Api.csproj
+
+    - name: Build DataverseUser.Get.Api.csproj
+      run: dotnet build ./src/*/*/DataverseUser.Get.Api.csproj --no-restore  -c Release
+
+    - name: Pack DataverseUser.Get.Api.csproj
+      run: dotnet pack ./src/*/*/DataverseUser.Get.Api.csproj --no-restore -o ~/nuget  -c Release
+
+    # DataverseUser.Get.Tests.csproj
+
+    - name: Restore DataverseUser.Get.Tests.csproj
+      run: dotnet restore ./src/*/*/DataverseUser.Get.Tests.csproj
+
+    - name: Test DataverseUser.Get.Tests.csproj
+      run: dotnet test ./src/*/*/DataverseUser.Get.Tests.csproj --no-restore  -c Release
+
+    # Push
+
+    - name: Push Packages
+      if: ${{ github.ref == 'refs/heads/main' }}
+      run: dotnet nuget push "../../../nuget/*.nupkg" -s ${{ secrets.GGROUPP_NUGET_SOURCE_URL }} -k ${{ secrets.GGROUPP_NUGET_SOURCE_USER_PASSWORD }} --skip-duplicate
