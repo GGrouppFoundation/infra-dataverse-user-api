@@ -47,13 +47,13 @@ jobs:
     - name: Pack DataverseUser.Get.Api.csproj
       run: dotnet pack ./src/*/*/DataverseUser.Get.Api.csproj --no-restore -o ~/nuget  -c Release
 
-    # DataverseUser.Get.Api.Tests.csproj
+    # DataverseUser.Get.Tests.csproj
 
-    - name: Restore DataverseUser.Get.Api.Tests.csproj
-      run: dotnet restore ./src/*/*/DataverseUser.Get.Api.Tests.csproj
+    - name: Restore DataverseUser.Get.Tests.csproj
+      run: dotnet restore ./src/*/*/DataverseUser.Get.Tests.csproj
 
-    - name: Test DataverseUser.Get.Api.Tests.csproj
-      run: dotnet test ./src/*/*/DataverseUser.Get.Api.Tests.csproj --no-restore  -c Release
+    - name: Test DataverseUser.Get.Tests.csproj
+      run: dotnet test ./src/*/*/DataverseUser.Get.Tests.csproj --no-restore  -c Release
 
     # Push
 
