@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <InvariantGlobalization>true</InvariantGlobalization>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <RootNamespace>GGroupp.Infra.Dataverse.DataverseUser.Get.Tests</RootNamespace>
-	<AssemblyName>GGroupp.Infra.Dataverse.DataverseUser.Get.Tests</AssemblyName>
+    <RootNamespace>GGroupp.Platform.Dataverse.DataverseUser.Get.Tests</RootNamespace>
+	<AssemblyName>GGroupp.Platform.Dataverse.DataverseUser.Get.Tests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

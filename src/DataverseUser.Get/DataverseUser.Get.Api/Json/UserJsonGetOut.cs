@@ -1,7 +1,7 @@
 using System;
 using System.Text.Json.Serialization;
 
-namespace GGroupp.Infra;
+namespace GGroupp.Platform;
 
 internal readonly record struct UserJsonGetOut
 {

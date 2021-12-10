@@ -1,4 +1,4 @@
-namespace GGroupp.Infra;
+namespace GGroupp.Platform;
 
 public enum DataverseUserGetFailureCode
 {

@@ -2,8 +2,9 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
+using GGroupp.Infra;
 
-namespace GGroupp.Infra;
+namespace GGroupp.Platform;
 
 using IDataverseUserGetFunc = IAsyncValueFunc<DataverseUserGetIn, Result<DataverseUserGetOut, Failure<DataverseUserGetFailureCode>>>;
 

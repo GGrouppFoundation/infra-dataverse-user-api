@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace GGroupp.Infra;
+namespace GGroupp.Platform;
 
 public readonly record struct DataverseUserGetOut
 {

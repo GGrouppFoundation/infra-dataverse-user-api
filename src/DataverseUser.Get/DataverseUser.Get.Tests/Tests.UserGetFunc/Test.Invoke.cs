@@ -1,13 +1,14 @@
-using DeepEqual.Syntax;
-using Moq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using DeepEqual.Syntax;
+using GGroupp.Infra;
+using Moq;
 using Xunit;
 
-namespace GGroupp.Infra.Dataverse.DataverseUser.Get.Tests;
+namespace GGroupp.Platform.Dataverse.DataverseUser.Get.Tests;
 
 partial class DataverseUserGetFuncTest
 {
