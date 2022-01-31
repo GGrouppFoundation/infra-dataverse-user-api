@@ -13,6 +13,4 @@ internal static class ApiNames
     public const string LastNameFieldName = "lastname";
 
     public const string FullNameFieldName = "yomifullname";
-
-    public const int NotFoundFailureCode = -2147088239;
 }

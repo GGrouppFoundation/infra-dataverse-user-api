@@ -17,8 +17,6 @@ public sealed partial class DataverseUserGetFuncTest
     
     private static readonly Guid SomeActiveDirectoryGuid;
 
-    private const int DataverseNotFoundStatusCode = -2147088239;
-
     private static IDataverseUserGetFunc CreateFunc(IDataverseEntityGetSupplier dataverseEntityGetSupplier)
         =>
         Dependency.Of(dataverseEntityGetSupplier)
@@ -26,14 +24,14 @@ public sealed partial class DataverseUserGetFuncTest
         .Resolve(Mock.Of<IServiceProvider>());
 
     private static Mock<IDataverseEntityGetSupplier> CreateMockDataverseApiClient(
-        Result<DataverseEntityGetOut<UserJsonGetOut>, Failure<int>> result,
+        Result<DataverseEntityGetOut<UserJsonGetOut>, Failure<DataverseFailureCode>> result,
         Action<DataverseEntityGetIn>? callback = default)
     {
         var mock = new Mock<IDataverseEntityGetSupplier>();
 
         var m = mock.Setup(
             s => s.GetEntityAsync<UserJsonGetOut>(It.IsAny<DataverseEntityGetIn>(), It.IsAny<CancellationToken>()))
-            .Returns(result.Pipe(ValueTask.FromResult));
+            .Returns(new ValueTask<Result<DataverseEntityGetOut<UserJsonGetOut>, Failure<DataverseFailureCode>>>(result));
 
         if (callback is not null)
         {

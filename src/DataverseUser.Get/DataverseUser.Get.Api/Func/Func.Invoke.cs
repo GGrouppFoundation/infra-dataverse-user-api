@@ -38,11 +38,11 @@ partial class DataverseUserGetFunc
                 new(ApiNames.ActiveDirectoryObjectIdFieldName, activeDirectoryId.ToString("D", CultureInfo.InvariantCulture))
             });
 
-    private static DataverseUserGetFailureCode MapDataverseFailureCode(int dataverseFailureCode)
+    private static DataverseUserGetFailureCode MapDataverseFailureCode(DataverseFailureCode dataverseFailureCode)
         =>
         dataverseFailureCode switch
         {
-            ApiNames.NotFoundFailureCode => DataverseUserGetFailureCode.NotFound,
+            DataverseFailureCode.RecordNotFound => DataverseUserGetFailureCode.NotFound,
             _ => DataverseUserGetFailureCode.Unknown
         };
 }

@@ -60,12 +60,12 @@ partial class DataverseUserGetFuncTest
     }
 
     [Theory]
-    [InlineData(404, DataverseUserGetFailureCode.Unknown)]
-    [InlineData(int.MinValue, DataverseUserGetFailureCode.Unknown)]
-    [InlineData(int.MaxValue, DataverseUserGetFailureCode.Unknown)]
-    [InlineData(0, DataverseUserGetFailureCode.Unknown)]
-    [InlineData(DataverseNotFoundStatusCode, DataverseUserGetFailureCode.NotFound)]
-    public async Task InvokeAsync_DataverseResultIsFailure_ExpectFailure(int sourceFailureCode, DataverseUserGetFailureCode expectedFailureCode)
+    [InlineData(DataverseFailureCode.RecordNotFound, DataverseUserGetFailureCode.NotFound)]
+    [InlineData(DataverseFailureCode.UserNotEnabled, DataverseUserGetFailureCode.Unknown)]
+    [InlineData(DataverseFailureCode.PicklistValueOutOfRange, DataverseUserGetFailureCode.Unknown)]
+    [InlineData(DataverseFailureCode.SearchableEntityNotFound, DataverseUserGetFailureCode.Unknown)]
+    [InlineData(DataverseFailureCode.Unknown, DataverseUserGetFailureCode.Unknown)]
+    public async Task InvokeAsync_DataverseResultIsFailure_ExpectFailure(DataverseFailureCode sourceFailureCode, DataverseUserGetFailureCode expectedFailureCode)
     {
         var dataverseFailure = Failure.Create(sourceFailureCode, "Some failure message");
         var mockDataverseApiClient = CreateMockDataverseApiClient(dataverseFailure);
