@@ -14,6 +14,7 @@ partial class DataverseUserGetFunc
         =>
         AsyncPipeline.Pipe(
             input, cancellationToken)
+        .HandleCancellation()
         .Pipe(
             @in => new DataverseEntityGetIn(
                 entityPluralName: ApiNames.SystemUserEntityName,
