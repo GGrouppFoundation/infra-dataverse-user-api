@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using DeepEqual.Syntax;
 using GGroupp.Infra;
 using Moq;
 using Xunit;
@@ -13,7 +12,7 @@ namespace GGroupp.Platform.Dataverse.DataverseUser.Get.Tests;
 partial class DataverseUserGetFuncTest
 {
     [Fact]
-    public void InvokeAsync_CancellationTokenIsCanceled_ExpectValueTaskIsCanceled()
+    public static void InvokeAsync_CancellationTokenIsCanceled_ExpectValueTaskIsCanceled()
     {
         var dataverseOut = new DataverseEntityGetOut<UserJsonGetOut>(default);
         var mockDataverseApiClient = CreateMockDataverseApiClient(dataverseOut);
@@ -28,10 +27,10 @@ partial class DataverseUserGetFuncTest
     }
 
     [Fact]
-    public async  Task InvokeAsync_CancellationTokenIsNotCanceled_ExpectCallDataVerseApiClientOnce()
+    public static async Task InvokeAsync_CancellationTokenIsNotCanceled_ExpectCallDataVerseApiClientOnce()
     {
         var dataverseOut = new DataverseEntityGetOut<UserJsonGetOut>(default);
-        var mockDataverseApiClient = CreateMockDataverseApiClient(dataverseOut, IsMatchDataverseInput);
+        var mockDataverseApiClient = CreateMockDataverseApiClient(dataverseOut);
 
         var func = CreateFunc(mockDataverseApiClient.Object);
 
@@ -40,23 +39,16 @@ partial class DataverseUserGetFuncTest
 
         _ = await func.InvokeAsync(input, token);
 
-        mockDataverseApiClient.Verify(
-            c => c.GetEntityAsync<UserJsonGetOut>(It.IsAny<DataverseEntityGetIn>(), token),
-            Times.Once);
+        var expectedRequest = new DataverseEntityGetIn(
+            entityPluralName: "systemusers",
+            entityKey: new DataverseAlternateKey(
+                new KeyValuePair<string, string>[]
+                {
+                    new("azureactivedirectoryobjectid", SomeActiveDirectoryGuid.ToString("D", CultureInfo.InvariantCulture))
+                }),
+            selectFields: new("systemuserid", "firstname", "lastname", "yomifullname"));
 
-        static void IsMatchDataverseInput(DataverseEntityGetIn actual)
-        {
-            var expected = new DataverseEntityGetIn(
-                entityPluralName: "systemusers",
-                entityKey: new DataverseAlternateKey(
-                    new KeyValuePair<string, string>[]
-                    {
-                        new("azureactivedirectoryobjectid", SomeActiveDirectoryGuid.ToString("D", CultureInfo.InvariantCulture))
-                    }),
-                selectFields: new[] { "systemuserid", "firstname", "lastname", "yomifullname" });
-
-            actual.ShouldDeepEqual(expected);
-        }
+        mockDataverseApiClient.Verify(c => c.GetEntityAsync<UserJsonGetOut>(expectedRequest, token), Times.Once);
     }
 
     [Theory]
@@ -65,7 +57,8 @@ partial class DataverseUserGetFuncTest
     [InlineData(DataverseFailureCode.PicklistValueOutOfRange, DataverseUserGetFailureCode.Unknown)]
     [InlineData(DataverseFailureCode.SearchableEntityNotFound, DataverseUserGetFailureCode.Unknown)]
     [InlineData(DataverseFailureCode.Unknown, DataverseUserGetFailureCode.Unknown)]
-    public async Task InvokeAsync_DataverseResultIsFailure_ExpectFailure(DataverseFailureCode sourceFailureCode, DataverseUserGetFailureCode expectedFailureCode)
+    public static async Task InvokeAsync_DataverseResultIsFailure_ExpectFailure(
+        DataverseFailureCode sourceFailureCode, DataverseUserGetFailureCode expectedFailureCode)
     {
         var dataverseFailure = Failure.Create(sourceFailureCode, "Some failure message");
         var mockDataverseApiClient = CreateMockDataverseApiClient(dataverseFailure);
@@ -80,7 +73,7 @@ partial class DataverseUserGetFuncTest
     }
 
     [Fact]
-    public async Task InvokeAsync_DataverseResultIsSuccess_ExpectSuccess()
+    public static async Task InvokeAsync_DataverseResultIsSuccess_ExpectSuccess()
     {
         const string firstName = "Ivan";
         const string lastName = "Petrov";

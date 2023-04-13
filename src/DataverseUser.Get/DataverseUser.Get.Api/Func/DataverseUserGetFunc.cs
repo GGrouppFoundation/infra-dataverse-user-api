@@ -1,7 +1,4 @@
 using System;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 using GGroupp.Infra;
 
 namespace GGroupp.Platform;
@@ -10,28 +7,15 @@ using IDataverseUserGetFunc = IAsyncValueFunc<DataverseUserGetIn, Result<Dataver
 
 internal sealed partial class DataverseUserGetFunc : IDataverseUserGetFunc
 {
-    private static readonly ReadOnlyCollection<string> selectedFields;
+    private static readonly FlatArray<string> selectedFields;
 
     static DataverseUserGetFunc()
         =>
-        selectedFields = new(new[]
-        {
-            ApiNames.SystemUserIdFieldName,
-            ApiNames.FirstNameFieldName,
-            ApiNames.LastNameFieldName,
-            ApiNames.FullNameFieldName
-        });
+        selectedFields = new(ApiNames.SystemUserIdFieldName, ApiNames.FirstNameFieldName, ApiNames.LastNameFieldName, ApiNames.FullNameFieldName);
 
     private readonly IDataverseEntityGetSupplier entityGetSupplier;
 
-    private DataverseUserGetFunc(IDataverseEntityGetSupplier entityGetSupplier)
+    internal DataverseUserGetFunc(IDataverseEntityGetSupplier entityGetSupplier)
         =>
         this.entityGetSupplier = entityGetSupplier;
-
-    public static DataverseUserGetFunc Create(IDataverseEntityGetSupplier entityGetSupplier)
-        =>
-        new(entityGetSupplier ?? throw new ArgumentNullException(nameof(entityGetSupplier)));
-
-    public partial ValueTask<Result<DataverseUserGetOut, Failure<DataverseUserGetFailureCode>>> InvokeAsync(
-        DataverseUserGetIn input, CancellationToken cancellationToken = default);
 }

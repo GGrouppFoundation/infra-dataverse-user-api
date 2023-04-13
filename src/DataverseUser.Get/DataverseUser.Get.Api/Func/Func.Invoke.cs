@@ -9,7 +9,7 @@ namespace GGroupp.Platform;
 
 partial class DataverseUserGetFunc
 {
-    public partial ValueTask<Result<DataverseUserGetOut, Failure<DataverseUserGetFailureCode>>> InvokeAsync(
+    public ValueTask<Result<DataverseUserGetOut, Failure<DataverseUserGetFailureCode>>> InvokeAsync(
         DataverseUserGetIn input, CancellationToken cancellationToken)
         =>
         AsyncPipeline.Pipe(
