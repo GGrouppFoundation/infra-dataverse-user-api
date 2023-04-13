@@ -1,6 +1,6 @@
 using System;
 
-namespace GGroupp.Platform;
+namespace GGroupp.Infra;
 
 public readonly record struct DataverseUserGetIn
 {

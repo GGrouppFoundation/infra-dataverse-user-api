@@ -7,7 +7,7 @@ using GGroupp.Infra;
 using Moq;
 using Xunit;
 
-namespace GGroupp.Platform.Dataverse.DataverseUser.Get.Tests;
+namespace GGroupp.Infra.Dataverse.DataverseUser.Get.Tests;
 
 partial class DataverseUserGetFuncTest
 {
