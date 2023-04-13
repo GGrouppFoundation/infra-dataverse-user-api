@@ -1,13 +1,10 @@
 using System;
 using System.Runtime.CompilerServices;
-using GGroupp.Infra;
 using PrimeFuncPack;
 
-[assembly: InternalsVisibleTo("GGroupp.Platform.Dataverse.DataverseUser.Get.Tests")]
+[assembly: InternalsVisibleTo("GGroupp.Infra.Dataverse.DataverseUser.Get.Test")]
 
-namespace GGroupp.Platform;
-
-using IDataverseUserGetFunc = IAsyncValueFunc<DataverseUserGetIn, Result<DataverseUserGetOut, Failure<DataverseUserGetFailureCode>>>;
+namespace GGroupp.Infra;
 
 public static class UserGetFuncDependency
 {

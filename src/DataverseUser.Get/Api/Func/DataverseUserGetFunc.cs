@@ -1,9 +1,6 @@
 using System;
-using GGroupp.Infra;
 
-namespace GGroupp.Platform;
-
-using IDataverseUserGetFunc = IAsyncValueFunc<DataverseUserGetIn, Result<DataverseUserGetOut, Failure<DataverseUserGetFailureCode>>>;
+namespace GGroupp.Infra;
 
 internal sealed partial class DataverseUserGetFunc : IDataverseUserGetFunc
 {

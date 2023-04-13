@@ -4,9 +4,7 @@ using GGroupp.Infra;
 using Moq;
 using PrimeFuncPack;
 
-namespace GGroupp.Platform.Dataverse.DataverseUser.Get.Tests;
-
-using IDataverseUserGetFunc = IAsyncValueFunc<DataverseUserGetIn, Result<DataverseUserGetOut, Failure<DataverseUserGetFailureCode>>>;
+namespace GGroupp.Infra.Dataverse.DataverseUser.Get.Tests;
 
 public static partial class DataverseUserGetFuncTest
 {

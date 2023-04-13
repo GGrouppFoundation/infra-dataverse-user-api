@@ -6,12 +6,12 @@
     <Nullable>enable</Nullable>
     <InvariantGlobalization>true</InvariantGlobalization>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <RootNamespace>GGroupp.Platform.Dataverse.DataverseUser.Get.Tests</RootNamespace>
-    <AssemblyName>GGroupp.Platform.Dataverse.DataverseUser.Get.Tests</AssemblyName>
+    <RootNamespace>GGroupp.Infra.Dataverse.DataverseUser.Get.Test</RootNamespace>
+    <AssemblyName>GGroupp.Infra.Dataverse.DataverseUser.Get.Test</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataverseUser.Get.Api\DataverseUser.Get.Api.csproj" />
+    <ProjectReference Include="..\Api\Api.csproj" />
   </ItemGroup>
 
   <ItemGroup>
