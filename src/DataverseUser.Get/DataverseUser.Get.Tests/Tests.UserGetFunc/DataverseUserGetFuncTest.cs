@@ -1,6 +1,5 @@
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 using GGroupp.Infra;
 using Moq;
 using PrimeFuncPack;
@@ -9,7 +8,7 @@ namespace GGroupp.Platform.Dataverse.DataverseUser.Get.Tests;
 
 using IDataverseUserGetFunc = IAsyncValueFunc<DataverseUserGetIn, Result<DataverseUserGetOut, Failure<DataverseUserGetFailureCode>>>;
 
-public sealed partial class DataverseUserGetFuncTest
+public static partial class DataverseUserGetFuncTest
 {
     static DataverseUserGetFuncTest()
         =>
@@ -29,9 +28,9 @@ public sealed partial class DataverseUserGetFuncTest
     {
         var mock = new Mock<IDataverseEntityGetSupplier>();
 
-        var m = mock.Setup(
-            s => s.GetEntityAsync<UserJsonGetOut>(It.IsAny<DataverseEntityGetIn>(), It.IsAny<CancellationToken>()))
-            .Returns(new ValueTask<Result<DataverseEntityGetOut<UserJsonGetOut>, Failure<DataverseFailureCode>>>(result));
+        var m = mock
+            .Setup(s => s.GetEntityAsync<UserJsonGetOut>(It.IsAny<DataverseEntityGetIn>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(result);
 
         if (callback is not null)
         {
