@@ -1,14 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GGroupp.Infra;
+namespace GarageGroup.Infra;
 
-partial class DataverseUserGetFunc
+partial class DataverseUserApi
 {
-    public ValueTask<Result<DataverseUserGetOut, Failure<DataverseUserGetFailureCode>>> InvokeAsync(
+    public ValueTask<Result<DataverseUserGetOut, Failure<DataverseUserGetFailureCode>>> GetUserAsync(
         DataverseUserGetIn input, CancellationToken cancellationToken)
         =>
         AsyncPipeline.Pipe(
@@ -17,8 +16,9 @@ partial class DataverseUserGetFunc
         .Pipe(
             @in => new DataverseEntityGetIn(
                 entityPluralName: ApiNames.SystemUserEntityName,
-                entityKey: BuildAlternateKey(input.ActiveDirectoryUserId),
-                selectFields: selectedFields))
+                entityKey: new DataverseAlternateKey(
+                    ApiNames.ActiveDirectoryObjectIdFieldName, @in.ActiveDirectoryUserId.ToString("D", CultureInfo.InvariantCulture)),
+                selectFields: UserJsonGetOut.SelectedFields))
         .PipeValue(
             entityGetSupplier.GetEntityAsync<UserJsonGetOut>)
         .MapFailure(
@@ -29,14 +29,6 @@ partial class DataverseUserGetFunc
                 firstName: entityGetOut.Value.FirstName,
                 lastName: entityGetOut.Value.LastName,
                 fullName: entityGetOut.Value.FullName));
-
-    private static DataverseAlternateKey BuildAlternateKey(Guid activeDirectoryId)
-        => 
-        new(
-            new KeyValuePair<string, string>[]
-            {
-                new(ApiNames.ActiveDirectoryObjectIdFieldName, activeDirectoryId.ToString("D", CultureInfo.InvariantCulture))
-            });
 
     private static DataverseUserGetFailureCode MapDataverseFailureCode(DataverseFailureCode dataverseFailureCode)
         =>

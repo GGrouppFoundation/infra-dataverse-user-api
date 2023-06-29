@@ -1,10 +1,16 @@
 using System;
 using System.Text.Json.Serialization;
 
-namespace GGroupp.Infra;
+namespace GarageGroup.Infra;
 
 internal readonly record struct UserJsonGetOut
 {
+    public static readonly FlatArray<string> SelectedFields;
+
+    static UserJsonGetOut()
+        =>
+        SelectedFields = new(ApiNames.SystemUserIdFieldName, ApiNames.FirstNameFieldName, ApiNames.LastNameFieldName, ApiNames.FullNameFieldName);
+
     [JsonPropertyName(ApiNames.SystemUserIdFieldName)]
     public Guid SystemUserId { get; init; }
 

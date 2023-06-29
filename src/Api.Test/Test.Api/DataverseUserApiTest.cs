@@ -1,24 +1,12 @@
 using System;
 using System.Threading;
-using GGroupp.Infra;
 using Moq;
-using PrimeFuncPack;
 
-namespace GGroupp.Infra.Dataverse.DataverseUser.Get.Tests;
+namespace GarageGroup.Infra.Dataverse.DataverseUser.Get.Api.Test;
 
-public static partial class DataverseUserGetFuncTest
+public static partial class DataverseUserApiTest
 {
-    static DataverseUserGetFuncTest()
-        =>
-        SomeActiveDirectoryGuid = Guid.Parse("1203c0e2-3648-4596-80dd-127fdd2610b7");
-    
-    private static readonly Guid SomeActiveDirectoryGuid;
-
-    private static IDataverseUserGetFunc CreateFunc(IDataverseEntityGetSupplier dataverseEntityGetSupplier)
-        =>
-        Dependency.Of(dataverseEntityGetSupplier)
-        .UseUserGetApi()
-        .Resolve(Mock.Of<IServiceProvider>());
+    private static readonly Guid SomeActiveDirectoryGuid = Guid.Parse("1203c0e2-3648-4596-80dd-127fdd2610b7");
 
     private static Mock<IDataverseEntityGetSupplier> CreateMockDataverseApiClient(
         Result<DataverseEntityGetOut<UserJsonGetOut>, Failure<DataverseFailureCode>> result,
@@ -32,7 +20,7 @@ public static partial class DataverseUserGetFuncTest
 
         if (callback is not null)
         {
-            m.Callback<DataverseEntityGetIn, CancellationToken>(
+            _ = m.Callback<DataverseEntityGetIn, CancellationToken>(
                 (@in, _) => callback.Invoke(@in));
         }
 
