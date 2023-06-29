@@ -14,8 +14,8 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '7.0.x'
-        
-     # Add NuGet Sources
+
+    # Add NuGet Sources
 
     - name: Create Local NuGet Directory
       run: mkdir ~/nuget
@@ -26,40 +26,51 @@ jobs:
     - name: Add GGroupp NuGet Source
       run: >
         dotnet nuget add source ${{ secrets.GG_NUGET_SOURCE_URL }}
-        -n ggroupp
+        -n garage
         -u ${{ secrets.GG_NUGET_SOURCE_USER_NAME }}
         -p ${{ secrets.GG_NUGET_SOURCE_USER_PASSWORD }}
         --store-password-in-clear-text
 
-    # DataverseUser.Get.InOut.csproj
+    # Api.Contract.User.Get.csproj
 
-    - name: Restore DataverseUser.Get.InOut.csproj
-      run: dotnet restore ./src/DataverseUser.Get/*/InOut.csproj
+    - name: Restore Api.Contract.User.Get.csproj
+      run: dotnet restore ./src/*/Api.Contract.User.Get.csproj
 
-    - name: Build DataverseUser.Get.InOut.csproj
-      run: dotnet build ./src/DataverseUser.Get/*/InOut.csproj --no-restore  -c Release
+    - name: Build Api.Contract.User.Get.csproj
+      run: dotnet build ./src/*/Api.Contract.User.Get.csproj --no-restore  -c Release
 
-    - name: Pack DataverseUser.Get.InOut.csproj
-      run: dotnet pack ./src/DataverseUser.Get/*/InOut.csproj --no-restore -o ~/nuget  -c Release
+    - name: Pack Api.Contract.User.Get.csproj
+      run: dotnet pack ./src/*/Api.Contract.User.Get.csproj --no-restore -o ~/nuget  -c Release
 
-    # DataverseUser.Get.Api.csproj
+    # Api.Contract.csproj
 
-    - name: Restore DataverseUser.Get.Api.csproj
-      run: dotnet restore ./src/DataverseUser.Get/*/Api.csproj
+    - name: Restore Api.Contract.csproj
+      run: dotnet restore ./src/*/Api.Contract.csproj
 
-    - name: Build DataverseUser.Get.Api.csproj
-      run: dotnet build ./src/DataverseUser.Get/*/Api.csproj --no-restore  -c Release
+    - name: Build Api.Contract.csproj
+      run: dotnet build ./src/*/Api.Contract.csproj --no-restore  -c Release
 
-    - name: Pack DataverseUser.Get.Api.csproj
-      run: dotnet pack ./src/DataverseUser.Get/*/Api.csproj --no-restore -o ~/nuget  -c Release
+    - name: Pack Api.Contract.csproj
+      run: dotnet pack ./src/*/Api.Contract.csproj --no-restore -o ~/nuget  -c Release
 
-    # DataverseUser.Get.Test.csproj
+    # Api.csproj
 
-    - name: Restore DataverseUser.Get.Test.csproj
-      run: dotnet restore ./src/DataverseUser.Get/*/Test.csproj
+    - name: Restore Api.csproj
+      run: dotnet restore ./src/*/Api.csproj
 
-    - name: Test DataverseUser.Get.Test.csproj
-      run: dotnet test ./src/DataverseUser.Get/*/Test.csproj --no-restore  -c Release
+    - name: Build Api.csproj
+      run: dotnet build ./src/*/Api.csproj --no-restore  -c Release
+
+    - name: Pack Api.csproj
+      run: dotnet pack ./src/*/Api.csproj --no-restore -o ~/nuget  -c Release
+
+    # Api.Test.csproj
+
+    - name: Restore Api.Test.csproj
+      run: dotnet restore ./src/*/Api.Test.csproj
+
+    - name: Test Api.Test.csproj
+      run: dotnet test ./src/*/Api.Test.csproj --no-restore  -c Release
 
     # Push
 
