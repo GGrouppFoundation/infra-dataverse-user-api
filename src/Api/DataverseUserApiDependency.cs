@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using PrimeFuncPack;
 
-[assembly: InternalsVisibleTo("GarageGroup.Infra.Dataverse.DataverseUser.Get.Api.Test")]
+[assembly: InternalsVisibleTo("GarageGroup.Infra.Dataverse.DataverseUser.Api.Test")]
 
 namespace GarageGroup.Infra;
 

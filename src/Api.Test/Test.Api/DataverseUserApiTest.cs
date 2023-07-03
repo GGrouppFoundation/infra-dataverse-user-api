@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using Moq;
 
-namespace GarageGroup.Infra.Dataverse.DataverseUser.Get.Api.Test;
+namespace GarageGroup.Infra.Dataverse.DataverseUser.Api.Test;
 
 public static partial class DataverseUserApiTest
 {
