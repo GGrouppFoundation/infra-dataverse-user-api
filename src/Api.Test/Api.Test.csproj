@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <InvariantGlobalization>true</InvariantGlobalization>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <RootNamespace>GarageGroup.Infra.Dataverse.DataverseUser.Get.Api.Test</RootNamespace>
-    <AssemblyName>GarageGroup.Infra.Dataverse.DataverseUser.Get.Api.Test</AssemblyName>
+    <RootNamespace>GarageGroup.Infra.Dataverse.DataverseUser.Api.Test</RootNamespace>
+    <AssemblyName>GarageGroup.Infra.Dataverse.DataverseUser.Api.Test</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
