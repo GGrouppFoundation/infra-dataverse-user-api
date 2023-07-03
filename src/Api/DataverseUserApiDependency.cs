@@ -8,7 +8,7 @@ namespace GarageGroup.Infra;
 
 public static class DataverseUserApiDependency
 {
-    public static Dependency<IDataverseUserApi> UseUserGetApi<TDataverseApiClient>(this Dependency<TDataverseApiClient> dependency)
+    public static Dependency<IDataverseUserApi> UseUserApi<TDataverseApiClient>(this Dependency<TDataverseApiClient> dependency)
         where TDataverseApiClient : IDataverseEntityGetSupplier
     {
         ArgumentNullException.ThrowIfNull(dependency);
