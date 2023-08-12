@@ -8,13 +8,13 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RootNamespace>GarageGroup.Infra</RootNamespace>
     <AssemblyName>GarageGroup.Infra.Dataverse.DataverseUser.Api</AssemblyName>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="EarlyFuncPack.Core.AsyncPipeline" Version="0.2.0" />
     <PackageReference Include="GarageGroup.Infra.Dataverse.Api.Abstractions.EntityGet" Version="3.7.0" />
-    <PackageReference Include="GarageGroup.Infra.Dataverse.DataverseUser.Api.Contract" Version="1.0.0" />
+    <PackageReference Include="GarageGroup.Infra.Dataverse.DataverseUser.Api.Contract" Version="1.1.0" />
     <PackageReference Include="PrimeFuncPack.Dependency.Core" Version="2.0.2" />
   </ItemGroup>
 
