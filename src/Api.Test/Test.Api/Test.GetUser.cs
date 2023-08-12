@@ -63,15 +63,17 @@ partial class DataverseUserApiTest
     public static async Task GetUserAsync_DataverseResultIsFailure_ExpectFailure(
         DataverseFailureCode sourceFailureCode, DataverseUserGetFailureCode expectedFailureCode)
     {
-        var dataverseFailure = Failure.Create(sourceFailureCode, "Some failure message");
-        var mockDataverseApiClient = CreateMockDataverseApiClient(dataverseFailure);
+        var sourceException = new Exception("Some Error Message");
+        var dataverseFailure = Failure.Create(sourceFailureCode, "Some failure message", sourceException);
 
+        var mockDataverseApiClient = CreateMockDataverseApiClient(dataverseFailure);
         var func = new DataverseUserApi(mockDataverseApiClient.Object);
 
         var input = new DataverseUserGetIn(SomeActiveDirectoryGuid);
-        var actual = await func.GetUserAsync(input, CancellationToken.None);
 
-        var expected = Failure.Create(expectedFailureCode, dataverseFailure.FailureMessage);
+        var actual = await func.GetUserAsync(input, CancellationToken.None);
+        var expected = Failure.Create(expectedFailureCode, dataverseFailure.FailureMessage, sourceException);
+
         Assert.Equal(expected, actual);
     }
 
