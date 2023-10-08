@@ -1,25 +1,47 @@
 using System;
+using System.Globalization;
 using System.Text.Json.Serialization;
 
 namespace GarageGroup.Infra;
 
 internal readonly record struct UserJsonGetOut
 {
-    public static readonly FlatArray<string> SelectedFields;
+
+    private const string SystemUserEntityName = "systemusers";
+
+    private const string ActiveDirectoryObjectIdFieldName = "azureactivedirectoryobjectid";
+
+    private const string SystemUserIdFieldName = "systemuserid";
+
+    private const string FirstNameFieldName = "firstname";
+
+    private const string LastNameFieldName = "lastname";
+
+    private const string FullNameFieldName = "yomifullname";
+
+    private static readonly FlatArray<string> SelectedFields;
 
     static UserJsonGetOut()
         =>
-        SelectedFields = new(ApiNames.SystemUserIdFieldName, ApiNames.FirstNameFieldName, ApiNames.LastNameFieldName, ApiNames.FullNameFieldName);
+        SelectedFields = new(SystemUserIdFieldName, FirstNameFieldName, LastNameFieldName, FullNameFieldName);
 
-    [JsonPropertyName(ApiNames.SystemUserIdFieldName)]
+    internal static DataverseEntityGetIn CreateEntityGetIn(Guid activeDirectoryUserId)
+        =>
+        new(
+            entityPluralName: SystemUserEntityName,
+            entityKey: new DataverseAlternateKey(
+                ActiveDirectoryObjectIdFieldName, activeDirectoryUserId.ToString("D", CultureInfo.InvariantCulture)),
+            selectFields: SelectedFields);
+
+    [JsonPropertyName(SystemUserIdFieldName)]
     public Guid SystemUserId { get; init; }
 
-    [JsonPropertyName(ApiNames.FirstNameFieldName)]
+    [JsonPropertyName(FirstNameFieldName)]
     public string? FirstName { get; init; }
 
-    [JsonPropertyName(ApiNames.LastNameFieldName)]
+    [JsonPropertyName(LastNameFieldName)]
     public string? LastName { get; init; }
 
-    [JsonPropertyName(ApiNames.FullNameFieldName)]
+    [JsonPropertyName(FullNameFieldName)]
     public string? FullName { get; init; }
 }

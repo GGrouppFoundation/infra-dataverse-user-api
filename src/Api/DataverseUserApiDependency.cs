@@ -14,10 +14,10 @@ public static class DataverseUserApiDependency
         ArgumentNullException.ThrowIfNull(dependency);
         return dependency.Map<IDataverseUserApi>(CreateFunc);
 
-        static DataverseUserApi CreateFunc(TDataverseApiClient apiClient)
+        static DataverseUserApi CreateFunc(TDataverseApiClient dataverseApi)
         {
-            ArgumentNullException.ThrowIfNull(apiClient);
-            return new(apiClient);
+            ArgumentNullException.ThrowIfNull(dataverseApi);
+            return new(dataverseApi);
         }
     }
 }

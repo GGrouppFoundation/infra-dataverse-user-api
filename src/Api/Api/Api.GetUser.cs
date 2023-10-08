@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,24 +10,20 @@ partial class DataverseUserApi
         DataverseUserGetIn input, CancellationToken cancellationToken)
         =>
         AsyncPipeline.Pipe(
-            input, cancellationToken)
+            input.ActiveDirectoryUserId, cancellationToken)
         .HandleCancellation()
         .Pipe(
-            @in => new DataverseEntityGetIn(
-                entityPluralName: ApiNames.SystemUserEntityName,
-                entityKey: new DataverseAlternateKey(
-                    ApiNames.ActiveDirectoryObjectIdFieldName, @in.ActiveDirectoryUserId.ToString("D", CultureInfo.InvariantCulture)),
-                selectFields: UserJsonGetOut.SelectedFields))
+            UserJsonGetOut.CreateEntityGetIn)
         .PipeValue(
-            entityGetSupplier.GetEntityAsync<UserJsonGetOut>)
+            dataverseApi.GetEntityAsync<UserJsonGetOut>)
         .MapFailure(
-            failure => failure.MapFailureCode(MapDataverseFailureCode))
+            static failure => failure.MapFailureCode(MapDataverseFailureCode))
         .MapSuccess(
-            entityGetOut => new DataverseUserGetOut(
-                systemUserId: entityGetOut.Value.SystemUserId,
-                firstName: entityGetOut.Value.FirstName,
-                lastName: entityGetOut.Value.LastName,
-                fullName: entityGetOut.Value.FullName));
+            static @out => new DataverseUserGetOut(
+                systemUserId: @out.Value.SystemUserId,
+                firstName: @out.Value.FirstName,
+                lastName: @out.Value.LastName,
+                fullName: @out.Value.FullName));
 
     private static DataverseUserGetFailureCode MapDataverseFailureCode(DataverseFailureCode dataverseFailureCode)
         =>

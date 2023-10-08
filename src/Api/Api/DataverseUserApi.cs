@@ -2,9 +2,9 @@ namespace GarageGroup.Infra;
 
 internal sealed partial class DataverseUserApi : IDataverseUserApi
 {
-    private readonly IDataverseEntityGetSupplier entityGetSupplier;
+    private readonly IDataverseEntityGetSupplier dataverseApi;
 
-    internal DataverseUserApi(IDataverseEntityGetSupplier entityGetSupplier)
+    internal DataverseUserApi(IDataverseEntityGetSupplier dataverseApi)
         =>
-        this.entityGetSupplier = entityGetSupplier;
+        this.dataverseApi = dataverseApi;
 }
