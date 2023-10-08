@@ -26,7 +26,7 @@ partial class DataverseUserApiTest
     }
 
     [Fact]
-    public static async Task GetUserAsync_CancellationTokenIsNotCanceled_ExpectCallDataVerseApiClientOnce()
+    public static async Task GetUserAsync_CancellationTokenIsNotCanceled_ExpectDataverseApiCalledOnce()
     {
         var dataverseOut = new DataverseEntityGetOut<UserJsonGetOut>(default);
         var mockDataverseApiClient = CreateMockDataverseApiClient(dataverseOut);
@@ -80,16 +80,12 @@ partial class DataverseUserApiTest
     [Fact]
     public static async Task GetUserAsync_DataverseResultIsSuccess_ExpectSuccess()
     {
-        const string firstName = "Ivan";
-        const string lastName = "Petrov";
-        const string fullName = "Sergey Denisov";
-
         var dataverseUser = new UserJsonGetOut
         {
             SystemUserId = Guid.Parse("bd8b8e33-554e-e611-80dc-c4346bad0190"),
-            FirstName = firstName,
-            LastName = lastName,
-            FullName = fullName
+            FirstName = "Ivan",
+            LastName = "Petrov",
+            FullName = "Sergey Denisov"
         };
 
         var dataverseOut = new DataverseEntityGetOut<UserJsonGetOut>(dataverseUser);
@@ -102,9 +98,9 @@ partial class DataverseUserApiTest
 
         var expected = new DataverseUserGetOut(
             systemUserId: dataverseUser.SystemUserId,
-            firstName: firstName,
-            lastName: lastName,
-            fullName: fullName);
+            firstName: "Ivan",
+            lastName: "Petrov",
+            fullName: "Sergey Denisov");
 
         Assert.Equal(expected, actual);
     }
